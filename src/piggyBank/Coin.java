@@ -1,7 +1,5 @@
 package piggyBank;
 
-import java.util.ArrayList;
-
 public class Coin
 {
     private double value;

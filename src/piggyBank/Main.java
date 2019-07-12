@@ -3,38 +3,14 @@ package piggyBank;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+
 public class Main
 {
-
-//    System.out.println("The piggy bank holds " + fp.format(myValue));
-    public static void main(String[] args)
+    public static void printBankContents(ArrayList<Coin> coins)
     {
-        Denomination value = new Denomination();
-        DecimalFormat fp = new DecimalFormat("$###,###.00");
-        ArrayList<Coin> piggyBank = new ArrayList<>();
-
-        Coin quarter = new Coin(value.quarter, 1);
-        piggyBank.add(quarter);
-        Coin dime = new Coin(value.dime, 1);
-        piggyBank.add(dime);
-        Coin dollar5 = new Coin(value.dollar, 5);
-        piggyBank.add(dollar5);
-        Coin nickel3 = new Coin(value.nickel, 3);
-        piggyBank.add(nickel3);
-        Coin dime7 = new Coin(value.dime, 7);
-        piggyBank.add(dime7);
-        Coin dollar = new Coin(value.dollar, 1);
-        piggyBank.add(dollar);
-        Coin penny10 = new Coin(value.penny, 10);
-        piggyBank.add(penny10);
-
-        double totalValue = 0;
         String coinType = "";
-        for (Coin c : piggyBank)
+        for (Coin c : coins)
         {
-            // While we're looping calculate the total amount in the bank for later use
-            totalValue += c.calculateTotalValue();
-
             // If we have more than 1 coin and it's not a dollar or penny use the plural S
             if ((c.getQuantity() > 1) && (c.getType() != "Dollar" || c.getType() != "Penny"))
             {
@@ -64,8 +40,39 @@ public class Main
             }
         }
 
+    }
+    public static void main(String[] args)
+    {
+        Denomination value = new Denomination();
+        PiggyBank piggyBank = new PiggyBank();
+        DecimalFormat fp = new DecimalFormat("$###,###.00");
+
+        Coin quarter = new Coin(value.quarter, 1);
+        piggyBank.addCoinToBank(quarter);
+        Coin dime = new Coin(value.dime, 1);
+        piggyBank.addCoinToBank(dime);
+        Coin dollar5 = new Coin(value.dollar, 5);
+        piggyBank.addCoinToBank(dollar5);
+        Coin nickel3 = new Coin(value.nickel, 3);
+        piggyBank.addCoinToBank(nickel3);
+        Coin dime7 = new Coin(value.dime, 7);
+        piggyBank.addCoinToBank(dime7);
+        Coin dollar = new Coin(value.dollar, 1);
+        piggyBank.addCoinToBank(dollar);
+        Coin penny10 = new Coin(value.penny, 10);
+        piggyBank.addCoinToBank(penny10);
+
+        // Display bank contents
+        printBankContents(piggyBank.getCoins());
+
         // Display the total contents of the piggy bank
-        String bankValue = "The piggy bank holds " + fp.format(totalValue);
+        String bankValue = "The piggy bank holds " + fp.format(piggyBank.getTotalAmount());
         System.out.println(bankValue);
+
+        // *********************Stretch *************************
+        //piggyBank.subtractAmountFromBank(1.50);  // Current total before subtraction is 7.30
+
+        // Display the updated contents after subtraction
+        //printBankContents(piggyBank.getCoins());
     }
 }
